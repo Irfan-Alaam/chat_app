@@ -36,3 +36,17 @@ uvicorn main:app --reload
 Then,
 Access at: http://localhost:8000
 or http://localhost:8000/static/auth.html
+------------------------------------------------------------------------------------------------------------------------------------------------
+## Manual Database Setup
+
+1. **Prerequisites**:
+   - PostgreSQL installed
+   - psql command line tool
+
+2. **Setup Database**:
+   ```bash
+   # Create database and tables (will prompt for password)
+   psql -U postgres -f setup_database.sql
+
+   # Or if you need to specify password:
+   PGPASSWORD=yourpassword psql -U postgres -f setup_database.sql
