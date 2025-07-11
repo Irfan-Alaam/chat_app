@@ -590,8 +590,8 @@ async function deleteUser(userId) {
             
             highlightSelectedRoom(roomToken);
             
-            socket = new WebSocket(`ws://${window.location.host}/ws/token/${roomToken}?token=${token}`);
-            
+            const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            socket = new WebSocket(`${wsProtocol}//${window.location.host}/ws/token/${roomToken}?token=${token}`);
             socket.onopen = () => {
                 messageInput.disabled = false;
                 messageForm.querySelector('button').disabled = false;
@@ -655,49 +655,40 @@ async function deleteUser(userId) {
     });
 
     createRoomForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = document.getElementById('room-name').value.trim();
-        const description = document.getElementById('room-description').value.trim();
-        const isPrivate = document.getElementById('room-private').checked;
-        
-        if (!name) {
-            alert('Room name cannot be empty');
-            return;
-        }
+  e.preventDefault();
+  
+  try {
+    const name = document.getElementById('room-name').value.trim();
+    const isPrivate = document.getElementById('room-private').checked;
+    console.log('Is private room?', isPrivate); // Debug log
 
-        try {
-            const response = await fetch('/rooms/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({ name, description, is_private: isPrivate })
-            });
-            
-            const data = await response.json();
-            
-            if (!response.ok) {
-                throw new Error(data.detail || 'Failed to create room');
-            }
+    const response = await fetch('/rooms/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ name, is_private: isPrivate })
+    });
 
-            createRoomModal.classList.remove('active');
-            
-            // Show token modal if room is private
-            if (isPrivate) {
-                roomTokenDisplay.value = data.room_token;
-                tokenModal.classList.add('active');
-            }
-            
-            // Add the new room to the list
-            addRoomToList(name, data.room_token, true, isPrivate);
-            
-            // Join the new room
-            await joinRoomByToken(data.room_token);
-            
-            createRoomForm.reset();
-            
-        } catch (error) {
+    const data = await response.json();
+    console.log('API Response:', data);
+
+    if (!response.ok) throw new Error(data.detail || 'Failed to create room');
+
+    createRoomModal.classList.remove('active');
+
+    // Modified condition - show token for all rooms
+    if (data.room_token) {
+      console.log('Showing token modal with token:', data.room_token);
+      roomTokenDisplay.value = data.room_token;
+      tokenModal.classList.add('active');
+    }
+
+    addRoomToList(name, data.room_token, true, isPrivate);
+    createRoomForm.reset();
+
+  }catch (error) {
             console.error('Error creating room:', error);
             alert(error.message || 'Failed to create room');
         }

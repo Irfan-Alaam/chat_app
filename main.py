@@ -406,8 +406,9 @@ async def create_room(room: RoomCreateRequest, token: str = Depends(oauth2_schem
         )
         room_id = cursor.fetchone()[0]
         conn.commit()
-
+        print("DEBUG: Room create response:", {"room_id": room_id, "room_token": room_token})
         return {"room_id": room_id, "room_token": room_token}
+        # return {"room_id": room_id, "room_token": room_token}
     except Exception as e:
         if conn:
             conn.rollback()
