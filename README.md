@@ -9,8 +9,21 @@ A real-time chat app with FastAPI backend and  JavaScript frontend.
 - Real-time messaging via WebSockets
 - Room creation and management
 - Responsive design
+------------------------------------------------------------------------------------------------------------------------------------------------
+## Setup using Docker with
+1. Set up environment variables:
+Create a .env file in the root directory:
+Edit the .env file with your preferred settings.
 
-## Setup
+2. Build and run the containers:
+bash
+docker-compose up --build
+Access the application:
+
+3. Open your browser and visit:
+   http://localhost:8000
+------------------------------------------------------------------------------------------------------------------------------------------------
+## Setup locally with postgres installed just change database.ini credentials and nothing more
 
 1. Clone the repository:
 ```bash
