@@ -10,7 +10,7 @@ def run_migrations():
         cursor = conn.cursor()
         
         # Read and execute your SQL file
-        with open('db/init/01_tables.sql', 'r') as f:
+        with open('db', 'r') as f:
             sql = f.read()
             cursor.execute(sql)
         
