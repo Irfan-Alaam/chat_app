@@ -1,0 +1,536 @@
+/* Global Styles */
+:root {
+    --primary-color: #4285f4;
+    --secondary-color: #34a853;
+    --error-color: #ea4335;
+    --background-color: #f5f5f5;
+    --sidebar-color: #ffffff;
+    --chat-color: #ffffff;
+    --text-color: #333333;
+    --border-color: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #3367d6;
+}
+
+/* Auth Page Styles */
+.auth-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    padding: 0.5rem 1rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-color);
+    position: relative;
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+}
+
+.tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--primary-color);
+}
+
+.auth-form {
+    display: none;
+}
+
+.auth-form.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.message {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.message.error {
+    background-color: #ffebee;
+    color: var(--error-color);
+}
+
+.message.success {
+    background-color: #e8f5e9;
+    color: var(--secondary-color);
+}
+
+/* Chat Page Styles */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.chat-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.chat-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-color);
+    border-right: 1px solid var(--border-color);
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.room-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.room-list {
+    margin-top: 1rem;
+}
+
+.room-list h3 {
+    margin-bottom: 0.5rem;
+}
+
+.room-list ul {
+    list-style: none;
+}
+
+.room-list li {
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.room-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.room-list li.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#room-info {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+}
+
+#room-users {
+    text-align: right;
+}
+
+#users-list {
+    list-style: none;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background-color: var(--chat-color);
+}
+
+.message-input {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+}
+
+#message-form {
+    display: flex;
+    gap: 0.5rem;
+}
+
+#message-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Message Styles */
+.chat-message {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    background-color: #e3f2fd;
+    max-width: 70%;
+}
+
+.chat-message.self {
+    margin-left: auto;
+    background-color: #bbdefb;
+}
+
+.chat-message .sender {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+}
+
+.chat-message .timestamp {
+    font-size: 0.75rem;
+    color: #666;
+    text-align: right;
+}
+
+.system-message {
+    color: #666;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .chat-layout {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: 200px;
+    }
+}
+
+/* Token Modal Styles */
+.token-display {
+    margin: 20px 0;
+}
+
+.token-box {
+    display: flex;
+    margin: 10px 0;
+}
+
+#room-token-display {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    font-family: monospace;
+}
+
+#copy-token-btn {
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+}
+
+.copy-status {
+    color: #4CAF50;
+    height: 20px;
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+/* Token Display Styles */
+.room-token-display {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    color: #666;
+}
+
+.icon-btn:hover {
+    color: #333;
+}
+
+#token-display {
+    padding: 5px 10px;
+    background: #f5f5f5;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.hidden {
+    display: none;
+}
+.room-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.btn.danger {
+    background-color: #ff4444;
+    color: white;
+}
+
+.btn.danger:hover {
+    background-color: #cc0000;
+}
+/* Room List Styles */
+#rooms-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#rooms-list li:hover {
+    background-color: #f0f0f0;
+}
+
+#rooms-list li.active {
+    background-color: #e0e0e0;
+}
+
+/* Room actions styles */
+.room-actions {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.edit-room-icon, .delete-room-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    font-size: 14px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.edit-room-icon:hover, .delete-room-icon:hover {
+    opacity: 1;
+}
+
+.edit-room-icon::after {
+    content: '✏️';
+}
+
+.delete-room-icon::after {
+    content: '🗑️';
+}
+
+#rooms-list li {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+#rooms-list li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Users Modal Styles */
+.users-list-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    margin: 20px 0;
+}
+
+
+.delete-user-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-user-btn:hover {
+    background-color: #d32f2f;
+}
+#rooms-list li.selected {
+    background-color: #e0e0e0;
+    border-left: 3px solid #4CAF50;
+}
+
+.delete-user-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-user-btn:hover {
+    background-color: #d32f2f;
+}
+
+.retry-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/* Admin Modal Styles */
+#admin-modal .modal-content {
+  max-width: 900px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.admin-section {
+  margin-bottom: 2rem;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.admin-table th {
+  background: #f0f0f0;
+  padding: 10px;
+  text-align: left;
+}
+
+.admin-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.delete-user-btn, .delete-room-btn {
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}

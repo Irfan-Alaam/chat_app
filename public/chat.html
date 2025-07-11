@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Rooms</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <h1>Chat App</h1>
+            <div class="user-info">
+                <span id="username-display"></span>
+                <button id="logout-btn" class="btn">Logout</button>
+            </div>
+        </header>
+
+        <div class="chat-layout">
+            <aside class="sidebar">
+                <div class="room-controls">
+                    <button id="create-room-btn" class="btn">Create Room</button>
+                    <button id="join-room-btn" class="btn">Join Room</button>
+                </div>
+                <div class="room-list">
+                    <h3>Your Rooms</h3>
+                    <ul id="rooms-list"></ul>
+                </div>
+            </aside>
+
+            <main class="chat-main">
+                <div id="room-info">
+    <h2 id="current-room-name">Select a room</h2>
+    
+    <div class="room-token-display">
+        <button id="show-token-btn" class="icon-btn" title="Show room token">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+            </svg>
+        </button>
+        <div id="token-display" class="hidden"></div>
+    </div>
+    <div id="room-users">
+        <h3>Participants</h3>
+        <ul id="users-list"></ul>
+    </div>
+</div>
+<!-- Add this with your other modals -->
+<div id="update-room-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Update Room</h2>
+        <form id="update-room-form">
+            <input type="hidden" id="update-room-token">
+            <div class="form-group">
+                <label for="update-room-name">Room Name</label>
+                <input type="text" id="update-room-name" required>
+            </div>
+            <button type="submit" class="btn">Update</button>
+        </form>
+    </div>
+</div>
+
+                <div class="chat-messages" id="chat-messages">
+                    <p class="system-message">Select a room to start chatting</p>
+                </div>
+
+                <div class="message-input">
+                    <form id="message-form">
+                        <input type="text" id="message-input" placeholder="Type your message..." disabled>
+                        <button type="submit" class="btn" disabled>Send</button>
+                    </form>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="create-room-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Create New Room</h2>
+            <form id="create-room-form">
+                <div class="form-group">
+                    <label for="room-name">Room Name</label>
+                    <input type="text" id="room-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="room-description">Description (Optional)</label>
+                    <input type="text" id="room-description">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="room-private"> Private Room
+                    </label>
+                </div>
+                <button type="submit" class="btn">Create</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modify the join room modal section -->
+<div id="join-room-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Join Existing Room</h2>
+        <form id="join-room-form">
+            <div class="form-group">
+                <label for="join-room-token">Room Token</label>
+                <input type="text" id="join-room-token" required>
+            </div>
+            <button type="submit" class="btn">Join</button>
+        </form>
+    </div>
+</div>
+<!-- Add this with your other modals -->
+<div id="admin-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2>Admin Panel</h2>
+    
+    <div class="admin-section">
+      <h3>Users</h3>
+      <table class="admin-table" id="admin-users-list">
+        <thead>
+          <tr>
+            <th>ID</th><th>Username</th><th>Email</th><th>Role</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="admin-section">
+      <h3>Rooms</h3>
+      <table class="admin-table" id="admin-rooms-list">
+        <thead>
+          <tr>
+            <th>ID</th><th>Name</th><th>Created By</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div id="token-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Room Created Successfully!</h2>
+        <div class="token-display">
+            <p>Share this token with others to join your room:</p>
+            <div class="token-box">
+                <input type="text" id="room-token-display" readonly>
+                <button id="copy-token-btn" class="btn">Copy</button>
+            </div>
+            <p class="copy-status" id="copy-status"></p>
+        </div>
+        <button id="close-token-modal" class="btn">Close</button>
+    </div>
+</div>
+
+
+
+    <script src="/static/utils.js"></script>
+    <script src="/static/chat.js"></script>
+</body>
+</html>

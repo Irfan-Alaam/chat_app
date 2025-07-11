@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Chat App</h1>
+        <div id="auth-status">
+            <p>You are not logged in.</p>
+            <a href="/static/auth.html" class="btn">Login or Signup</a>
+        </div>
+    </div>
+    <script src="/static/utils.js"></script>
+    <script>
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await fetch('/users/me', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    if (response.ok) {
+                        window.location.href = '/static/chat.html';
+                    }
+                } catch (error) {
+                    console.error('Token validation failed:', error);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
