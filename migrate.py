@@ -22,9 +22,6 @@ def run_migrations():
         print("✅ Database tables created successfully")
     except Exception as e:
         print("❌ Migration failed:", e)
-    finally:
-        if conn:
-            conn.close()
 
 if __name__ == '__main__':
     run_migrations()
